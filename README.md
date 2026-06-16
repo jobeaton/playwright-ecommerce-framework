@@ -8,10 +8,10 @@ The framework automates key e-commerce user workflows including authentication a
 
 ## Technologies Used
 
-* Playwright
-* JavaScript (ES Modules)
-* Page Object Model (POM)
-* Git / GitHub
+- Playwright
+- JavaScript (ES Modules)
+- Page Object Model (POM)
+- Git / GitHub
 
 ## Project Structure
 
@@ -34,23 +34,23 @@ tests/
 
 ### Authentication
 
-* Successful user login
-* Invalid login validation
+- Successful user login
+- Invalid login validation
 
 ### Shopping Cart
 
-* Add product to cart
-* Verify product exists in cart
+- Add product to cart
+- Verify product exists in cart
 
 ## Design Principles
 
 This framework follows several automation engineering best practices:
 
-* Page Object Model (POM)
-* Centralized test data
-* Reusable page methods
-* Dynamic element selection
-* Clear separation of test logic and page interactions
+- Page Object Model (POM)
+- Centralized test data
+- Reusable page methods
+- Dynamic element selection
+- Clear separation of test logic and page interactions
 
 ## Running Tests
 
@@ -80,10 +80,10 @@ npx playwright test --headed
 
 ## Future Enhancements
 
-* Checkout flow automation
-* Order confirmation validation
-* Environment variable support
-* API testing
-* GitHub Actions CI/CD integration
-* HTML reporting enhancements
-* Playwright fixtures
+- Checkout flow automation
+- Order confirmation validation
+- Environment variable support
+- API testing
+- GitHub Actions CI/CD integration
+- HTML reporting enhancements
+- Playwright fixtures

@@ -2,8 +2,8 @@
 export const userData = {
 
     validUser: {
-        email: 'your-test-email',
-        password: 'your-test-password'
+        email: process.env.TEST_EMAIL,
+        password: process.env.TEST_PASSWORD
     },
 
     invalidUser: {
