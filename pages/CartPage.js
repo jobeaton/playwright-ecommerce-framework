@@ -1,25 +1,21 @@
-// Represents the shopping cart page
 export class CartPage {
+  constructor(page) {
+    this.page = page;
 
-    constructor(page) {
+    this.cartProducts = page.locator('.cartSection h3');
 
-        this.page = page;
+    this.checkoutButton = page.getByRole('button', { name: 'Checkout' });
+  }
 
-        // Product titles displayed inside cart
-        this.cartProducts = page.locator('.cartSection h3');
-    }
+  async verifyProductInCart(productName) {
+    await this.cartProducts.first().waitFor();
 
-    // Verify specific product exists in cart
-    async verifyProductInCart(productName) {
+    const products = await this.cartProducts.allTextContents();
 
-        await this.cartProducts.first().waitFor();
+    return products.some(product => product.trim() === productName);
+  }
 
-        // Get all cart product names
-        const products = await this.cartProducts.allTextContents();
-
-        console.log(products);
-
-        // Return true/false depending on match
-        return products.includes(productName);
-    }
+  async goToCheckout() {
+    await this.checkoutButton.click();
+  }
 }
