@@ -8,6 +8,7 @@ import { OrderConfirmationPage } from '../pages/OrderConfirmationPage.js';
 
 import { userData } from '../test-data/userData.js';
 import { productData } from '../test-data/productData.js';
+import { OrdersPage } from '../pages/OrdersPage.js';
 
 test('user can complete checkout successfully', async ({ page }) => {
   const loginPage = new LoginPage(page);
@@ -15,6 +16,7 @@ test('user can complete checkout successfully', async ({ page }) => {
   const cartPage = new CartPage(page);
   const checkoutPage = new CheckoutPage(page);
   const orderConfirmationPage = new OrderConfirmationPage(page);
+  const ordersPage = new OrdersPage(page);
 
   const productName = productData.zaraCoat;
   const countryName = 'United States';
@@ -38,7 +40,7 @@ test('user can complete checkout successfully', async ({ page }) => {
 
   await cartPage.goToCheckout();
 
-  await checkoutPage.selectCountry('uni', 'United States');
+  await checkoutPage.selectCountry('uni', countryName);
 
   await checkoutPage.placeOrder();
 
@@ -50,4 +52,11 @@ test('user can complete checkout successfully', async ({ page }) => {
   const orderId = await orderConfirmationPage.getOrderId();
 
   expect(orderId.length).toBeGreaterThan(0);
+
+  await ordersPage.goToOrders();
+
+  const orderExists =
+    await ordersPage.verifyOrderExists(orderId);
+
+  expect(orderExists).toBeTruthy();
 });
