@@ -1,38 +1,19 @@
-import { test, expect } from '@playwright/test';
-
-import { LoginPage } from '../pages/LoginPage.js';
-import { DashboardPage } from '../pages/DashboardPage.js';
-import { CartPage } from '../pages/CartPage.js';
-import { CheckoutPage } from '../pages/CheckoutPage.js';
-import { OrderConfirmationPage } from '../pages/OrderConfirmationPage.js';
-
-import { userData } from '../test-data/userData.js';
+import { test, expect } from '../fixtures/baseTest.js';
 import { productData } from '../test-data/productData.js';
-import { OrdersPage } from '../pages/OrdersPage.js';
 
-test('user can complete checkout successfully', async ({ page }) => {
-  const loginPage = new LoginPage(page);
-  const dashboardPage = new DashboardPage(page);
-  const cartPage = new CartPage(page);
-  const checkoutPage = new CheckoutPage(page);
-  const orderConfirmationPage = new OrderConfirmationPage(page);
-  const ordersPage = new OrdersPage(page);
+test('user can complete checkout successfully', async ({
+  authenticatedDashboardPage,
+  cartPage,
+  checkoutPage,
+  orderConfirmationPage,
+  ordersPage
+}) => {
 
   const productName = productData.zaraCoat;
   const countryName = 'United States';
 
-  await loginPage.goTo();
-
-  await loginPage.login(
-    userData.validUser.email,
-    userData.validUser.password
-  );
-
-  await dashboardPage.expectDashboardLoaded();
-
-  await dashboardPage.addProductToCart(productName);
-
-  await dashboardPage.goToCart();
+  await authenticatedDashboardPage.addProductToCart(productName);
+  await authenticatedDashboardPage.goToCart();
 
   const productExists = await cartPage.verifyProductInCart(productName);
 

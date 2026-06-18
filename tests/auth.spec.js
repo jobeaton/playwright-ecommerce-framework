@@ -1,48 +1,52 @@
-import { test, expect } from '@playwright/test';
-import { LoginPage } from '../pages/LoginPage.js';
+import { test, expect } from '../fixtures/baseTest.js';
 import { userData } from '../test-data/userData.js';
-import { DashboardPage } from '../pages/DashboardPage.js';
 
-// Define a test case
-test('user can login successfully', async ({ page }) => {
-  const loginPage = new LoginPage(page);
-  const dashboardPage = new DashboardPage(page);
+// Verifies a valid user can successfully log in
+// and reach the dashboard page
+test('user can login successfully', async ({
+  loginPage,
+  dashboardPage
+}) => {
 
+  // Navigate to the login page
   await loginPage.goTo();
 
+  // Authenticate with valid test credentials
   await loginPage.login(
     userData.validUser.email,
     userData.validUser.password
   );
 
+  // Confirm dashboard loaded after login
   await dashboardPage.expectDashboardLoaded();
 
-  const productTitles = await dashboardPage.getProductTitles();
+  // Retrieve available product titles
+  const productTitles =
+    await dashboardPage.getProductTitles();
 
-  console.log(productTitles);
-
+  // Verify products are displayed
   expect(productTitles.length).toBeGreaterThan(0);
 });
 
-test('user sees error for invalid login', async ({ page }) => {
+// Verifies an error message is displayed
+// when invalid credentials are used
+test('user sees error for invalid login', async ({
+  loginPage
+}) => {
 
-  const loginPage = new LoginPage(page);
-
+  // Navigate to the login page
   await loginPage.goTo();
 
+  // Attempt login with invalid credentials
   await loginPage.login(
     userData.invalidUser.email,
     userData.invalidUser.password
   );
 
-
-    const errorMessage =
+  // Capture login error message
+  const errorMessage =
     await loginPage.getLoginErrorMessage();
 
-  console.log(errorMessage);
-
-  expect(errorMessage)
-    .toContain('Incorrect');
-
-
+  // Verify correct validation message appears
+  expect(errorMessage).toContain('Incorrect');
 });
