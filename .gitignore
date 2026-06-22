@@ -10,4 +10,3 @@ node_modules/
 # Environment variables
 .env
 
-.github/workflows/playwright.yml

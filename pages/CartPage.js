@@ -2,9 +2,9 @@ export class CartPage {
   constructor(page) {
     this.page = page;
 
-    this.cartProducts = page.locator('.cartSection h3');
+    this.cartProducts = page.locator(".cartSection h3");
 
-    this.checkoutButton = page.getByRole('button', { name: 'Checkout' });
+    this.checkoutButton = page.getByRole("button", { name: "Checkout" });
   }
 
   async verifyProductInCart(productName) {
@@ -12,7 +12,7 @@ export class CartPage {
 
     const products = await this.cartProducts.allTextContents();
 
-    return products.some(product => product.trim() === productName);
+    return products.some((product) => product.trim() === productName);
   }
 
   async goToCheckout() {
