@@ -1,18 +1,20 @@
 # Playwright E-Commerce Automation Framework
 
-A Playwright automation framework built using JavaScript to demonstrate modern UI testing, API testing, and API/UI integration testing practices.
+A Playwright automation framework built with JavaScript to demonstrate modern UI testing, API testing, API/UI integration testing, API mocking, CI/CD, and Dockerized test execution.
 
 ## Project Overview
 
-This project automates an e-commerce application using Playwright and follows industry-standard automation design patterns, including:
+This project automates an e-commerce application using Playwright and follows maintainable automation design practices, including:
 
 * Page Object Model (POM)
-* Custom Playwright Fixtures
-* Environment Variable Configuration
-* API Testing
-* API + UI Hybrid Testing
+* Custom Playwright fixtures
+* Environment variable configuration
+* Reusable test data management
+* API testing
+* API + UI hybrid testing
+* API mocking with route interception
 * GitHub Actions CI/CD
-* Reusable Test Data Management
+* Dockerized test execution
 
 ## Tech Stack
 
@@ -21,6 +23,7 @@ This project automates an e-commerce application using Playwright and follows in
 * Node.js
 * Git / GitHub
 * GitHub Actions
+* Docker
 
 ## Framework Structure
 
@@ -38,7 +41,7 @@ utils/
   API helper utilities
 
 tests/
-  End-to-end and API test scenarios
+  End-to-end, API, API/UI, and API mocking test scenarios
 
 .github/workflows/
   GitHub Actions CI pipeline
@@ -76,16 +79,22 @@ tests/
 * Create order through API
 * Validate order appears in UI order history
 
+### API Mocking
+
+* Mock empty order history responses
+* Mock backend failure responses
+* Validate frontend behavior under controlled network conditions
+
 ## Continuous Integration
 
 This project uses GitHub Actions to automatically execute Playwright tests on every push and pull request.
 
 Workflow steps include:
 
-1. Install dependencies
-2. Install Playwright browsers
-3. Execute Playwright test suite
-4. Publish Playwright HTML report artifacts
+* Install dependencies
+* Install Playwright browsers
+* Execute Playwright test suite
+* Publish Playwright HTML report artifacts
 
 ## Running Tests Locally
 
@@ -107,11 +116,27 @@ Run a specific test:
 npx playwright test tests/checkout.spec.js --project=chromium
 ```
 
-View HTML report:
+View the HTML report:
 
 ```bash
 npx playwright show-report
 ```
+
+## Running Tests with Docker
+
+Build the Docker image:
+
+```bash
+docker build -t playwright-ecommerce-tests .
+```
+
+Run the Playwright test suite inside a container:
+
+```bash
+docker run --rm --env-file .env playwright-ecommerce-tests
+```
+
+The Docker container runs the Chromium Playwright test suite with a single worker for stable execution in a containerized environment. Environment variables are passed at runtime using the `.env` file instead of being copied into the Docker image.
 
 ## Author
 
